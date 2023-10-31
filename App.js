@@ -8,6 +8,27 @@ function App() {
   const[openBtn, setOpenBtn] = useState(false)
   const[ekleBtn, setEkleBtn] = useState([])
 
+  const menuRef = useRef(null); // Bir referans oluşturun
+
+  useEffect(() => {
+    // Bu fonksiyon, sayfanın herhangi bir yerine tıklandığında çalışır
+    function handleClickOutside(event) {
+      // Eğer tıklanan yer yan menü değilse
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        // Yan menüyü gizle
+        setOpenBtn(false);
+      }
+    }
+
+    // Olay dinleyicisini 'document' nesnesine ekle
+    document.addEventListener("mousedown", handleClickOutside);
+    // Temizleme fonksiyonu
+    return () => {
+      // Olay dinleyicisini 'document' nesnesinden kaldır
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuRef]);
+
   console.log(ekleBtn.length);
 
   return (
@@ -31,7 +52,7 @@ shopping_cart
       </header>
       
 
-      <SagBar deger = {openBtn} urunler = {ekleBtn} urunlerProps = {setEkleBtn} />
+      <SagBar  menuRef={menuRef} deger = {openBtn} urunler = {ekleBtn} urunlerProps = {setEkleBtn} />
 
       
 
