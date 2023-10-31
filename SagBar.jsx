@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-function SagBar({deger, urunler, urunlerProps}){
+function SagBar({deger, urunler, urunlerProps, menuRef}){
 
     console.log(urunler);
 
@@ -17,7 +17,7 @@ function SagBar({deger, urunler, urunlerProps}){
     
 
     return(
-        <div className={`sagBar ${deger ? 'active' : ""}`}>
+        <div ref={menuRef}  className={`sagBar ${deger ? 'active' : ""}`}>
             <div className="ust">
             <h2 className="firstH2">SEPETİM <span style={{
                 marginLeft: "5px",
